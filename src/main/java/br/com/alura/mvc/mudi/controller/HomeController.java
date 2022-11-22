@@ -30,7 +30,7 @@ public class HomeController {
 
 //		List<Pedido> pedidos = Arrays.asList(pedido);
 
-		List<Pedido> pedidos = pedidoRepository.recuperaTodosOsPedidos();
+		List<Pedido> pedidos = pedidoRepository.findAll();
 		model.addAttribute("pedidos", pedidos);
 		return "home";
 	}
