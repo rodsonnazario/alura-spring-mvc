@@ -1,37 +1,58 @@
 <html>
 	<head th:replace="~{base :: head}"></head>
-	<body>
+	<body onload="onLoad()">
 		<div th:replace="~{base :: logo}"></div>			
-		<div class="container">
-			<div th:replace="~{base :: titulo('Últimos Pedidos')}"></div>
-			<div class="card mb-3 mt-2" th:each="pedido : ${pedidos}">
-				<div class="card-header alert alert-dark" th:text="${pedido.nomeProduto}">Nome do produto</div>
+		<div class="container" id="ofertas">
+			<div th:replace="~{base :: titulo('Faça sua oferta')}"></div>
+			<div class="card mb-3 mt-2" v-for="pedido in pedidos">
+				<div class="card-header alert alert-dark">{{pedido.nomeProduto}}</div>
 				<div class="card-body">
 					<div class="row">
 						<div class="col-12 col-sm-8 mb-3">
 							<div class="row">
-								<div class="col-md-5">Valor: <span th:if="${pedido.dataDaEntrega} != null" th:text="${'R$ ' + #numbers.formatDecimal(pedido.valorNegociado, 3, 'POINT', 2, 'COMMA')}">200,99</span></div>
-								<div class="col-md-7">Data da entrega: <span th:text="${#temporals.format(pedido.dataDaEntrega, 'dd/MM/yyyy')}">10/02/2020</span></div>
+								<div class="col-md-5">Valor: <input /></div>
+								<div class="col-md-7">Data da entrega: <input /></div>
 							</div>
 						
 							<div>Produto</div>
 							<div> 
-								<input class="form-control" th:value="${pedido.urlProduto}" value="url do produto"/>
+								<a v-bind:href="pedido.urlProduto">{{pedido.urlProduto}}</a>
 							</div>
 						
 							<div>Descrição</div>
 							<div>
-								<textarea class="form-control" th:text="${pedido.descricao}">descrição do pedido</textarea>
+								<textarea class="form-control">{{pedido.nomeProduto}}</textarea>
 							</div>
 						</div>				
 						<div class="col-12 col-sm-4">
 							<div>
-								<img class="img-thumbnail" th:src="${pedido.urlImagem}" src=""/>
+								<img class="img-thumbnail" v-bind:src="pedido.urlImagem"/>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+		<script>
+			function onLoad() {				
+				var app = new Vue({
+					el: '#ofertas',
+					data: {
+						pedidos: [
+							{
+								"nomeProduto": "Echo Dot (3ª Geração)",
+								"valorNegociado": null,
+								"dataDaEntrega": null,
+								"urlProduto": "https://a.co/d/dkx0R10",
+								"urlImagem": "https://m.media-amazon.com/images/I/41GZCWFJB1L._AC_SX425_.jpg",
+								"descricao": "Echo Dot (3ª Geração): Smart Speaker com Alexa - Cor Preta",
+								"status": "AGUARDANDO"
+								}
+								]
+					}
+				})
+			}			
+		</script>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 	</body>
 </html>
