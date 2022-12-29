@@ -14,7 +14,7 @@ import javax.persistence.ManyToOne;
 public class Oferta {
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long pedidoId;
+	private Long id;
 	private BigDecimal valor;
 	private LocalDate dataDaEntrega;
 	private String comentario;
@@ -22,12 +22,12 @@ public class Oferta {
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Pedido pedido;
 
-	public Long getPedidoId() {
-		return pedidoId;
+	public Long getId() {
+		return id;
 	}
 
-	public void setPedidoId(Long pedidoId) {
-		this.pedidoId = pedidoId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public BigDecimal getValor() {
